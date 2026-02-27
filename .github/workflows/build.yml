@@ -1,0 +1,42 @@
+name: Build Releases
+on: [push]
+
+jobs:
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install customtkinter mss Pillow openai pypresence pyobjc-framework-Vision pyobjc-framework-Cocoa pyinstaller
+
+      - name: Build with PyInstaller
+        run: |
+          python3 -m PyInstaller --noconsole --onefile \
+          --name "StealthReaderPro" \
+          --add-data "ocr_engine.py:." \
+          --add-data "ai_handler.py:." \
+          --add-data "win_utils.py:." \
+          --add-data "discord_handler.py:." \
+          --add-data "overlay.py:." \
+          main.py
+
+      - name: Create DMG
+        run: |
+          mkdir dist/dmg
+          cp -r dist/StealthReaderPro.app dist/dmg
+          hdiutil create -volname "StealthReaderInstaller" -srcfolder dist/dmg -ov -format UDZO StealthReader_Mac.dmg
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-executable
+          path: StealthReader_Mac.dmg
