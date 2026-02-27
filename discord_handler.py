@@ -1,8 +1,8 @@
 from pypresence import Presence
 import time
 
-class DiscordPresence:
-    def __init__(self, client_id):
+class DiscordHandler: # Changed from DiscordPresence to DiscordHandler
+    def __init__(self, client_id="123456789012345678"): # Replace with your actual ID
         self.client_id = client_id
         self.rpc = None
         self.start_time = time.time()
@@ -11,15 +11,17 @@ class DiscordPresence:
         try:
             self.rpc = Presence(self.client_id)
             self.rpc.connect()
-            self.update("System Standby")
         except:
             self.rpc = None
 
-    def update(self, details):
+    def update_presence(self, state, details):
         if self.rpc:
-            self.rpc.update(
-                state="Stealth Reader Pro",
-                details=details,
-                start=self.start_time,
-                large_image="stealth_logo" 
-            )
+            try:
+                self.rpc.update(
+                    state=state,
+                    details=details,
+                    start=self.start_time,
+                    large_image="stealth_logo" 
+                )
+            except:
+                pass
