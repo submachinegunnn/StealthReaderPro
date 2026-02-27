@@ -53,6 +53,5 @@ Set your preferred Hotkey (Default: Ctrl + Alt + S).
 
 Choose your UI Theme and click Save & Apply.
 
-⌨️ Default ControlsActionShortcutInitiate ScanCtrl + Alt + SConfirm SelectionLeft Mouse DragCancel ScanEscSubmit Manual PromptEnter
-
-📜 DisclaimerThis tool is intended for educational and productivity purposes. Always ensure you have permission to capture and process content from third-party applications. The developers are not responsible for any misuse of this software.
+📜 Disclaimer
+This tool is intended for educational and productivity purposes. Always ensure you have permission to capture and process content from third-party applications. The developers are not responsible for any misuse of this software.
